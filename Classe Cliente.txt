@@ -1,0 +1,83 @@
+using System;
+
+//Classe Cliente
+public class Cliente
+{
+	//Define Atributos
+	private string Login;
+	private float Saldo;
+	
+	//Define Métodos
+	public void CriaCliente(string l, float s)
+	{
+		this.Login = l;
+		this.Saldo = s;
+	}
+	
+	public string BuscaCliente()
+	{
+		string cliente;
+		cliente = " Cliente:" + this.Login + " Saldo:" + this.Saldo;
+		return cliente;
+	}
+	
+	public void EfetuarDepósito(float so)
+	{
+		float soma = so;
+		this.Saldo = this.Saldo + soma;
+	}
+	public void EfetuarSaque(float sa)
+	{
+		float saque = sa;
+		this.Saldo = this.Saldo - saque;
+	}
+}
+
+//Programa Principal
+public class Program
+{
+	public static void Main()
+	{
+		Console.WriteLine("Crie um Cliente");
+		Console.WriteLine("Insira a Quantidade de Clientes:");
+		
+		int n = int.Parse(Console.ReadLine());
+		
+		//Cria Vetor de Objetos do tipo Caixa Eletrônico
+		Cliente[] cli = new Cliente[n];
+		
+		for (int i = 0; i < n; i++)
+		{
+			//Instancia Novo Objeto da Classe Caixa
+			cli[i] = new Cliente();
+			
+			Console.WriteLine("Nome do Cliente....:");
+			string login = Console.ReadLine();
+			float saldo = 0;
+			
+			Console.WriteLine("\n");
+			
+			//Chamada do Método CriaCaixa
+			cli[i].CriaCliente(login, saldo);
+		}
+	
+		
+		int status = 0;
+		
+		while (status == 0)
+		{	
+			Console.WriteLine("Busca Cliente #");
+			int n_cli = int.Parse(Console.ReadLine());
+			n_cli=n_cli-1;
+			Console.WriteLine(cli[n_cli].BuscaCliente());
+			
+			Console.WriteLine("Deseja sair? S/N");
+			string sair = Console.ReadLine();
+			
+			if (sair == "S" || sair == "s")
+			{
+				status = 1;
+			}
+		}
+	}
+}

@@ -1,0 +1,140 @@
+using System;
+
+//Classe Computador
+public class Computador
+{
+	//Define Atributos
+	private string Marca;
+	private string Modelo;
+	private string Processador;
+	private string wifi;
+	private float HD;
+	private float RAM;
+	private string Musica;
+
+	//Define Métodos
+	public void CriaComputador(string m, string n, string p, float hd, float ram, string w, string mus)
+	{
+		this.Marca = m;
+		this.Modelo = n;
+		this.Processador = p;
+		this.HD = hd;
+		this.RAM = ram;
+		this.wifi = "Desligado";
+		this.Musica = mus;
+	}
+	
+	public string BuscaComputador()
+	{
+		string computador;
+		computador = this.Marca + " " + this.Modelo + " " + " " + this.Processador + " " + this.HD + " " + this.RAM + " Wifi: " + this.wifi + this.Musica;
+		return computador;
+	}
+		// MÉTODDOS PARA CONTROLAR O ESTADO DO WIFI:
+	public void LigaWifi()
+	{
+		this.wifi = "Ligado";
+	}
+	public void DesligaWifi()
+	{
+		this.wifi = "Desligado";
+	}
+		//MÉTODOS PARA TOCAR/DESLIGAR A MÚSICA:
+	public void ReproduzirMusica(string m) {
+		string mus = m;
+		this.Musica = " Reproduzindo: " + mus;
+	}
+	public void DesligaMusica() {
+		this.Musica = "";
+	}
+}
+
+//Programa Principal
+public class Program
+{
+	public static void Main()
+	{
+		Console.WriteLine("Crie Objetos da Classe Computador");
+		Console.WriteLine("Insira a Quantidade de Computadores:");
+		
+		int n = int.Parse(Console.ReadLine());
+		
+		//Cria Vetor de Objetos do tipo Computador
+		Computador[] comp = new Computador[n];
+		
+		for (int i = 0; i < n; i++)
+		{
+			//Instancia Novo Objeto da Classe Computador
+			comp[i] = new Computador();
+			
+			Console.WriteLine("---------------");
+			Console.WriteLine("Computador #" + (i+1));
+			Console.WriteLine("Marca....:");
+			string marca = Console.ReadLine();
+			Console.WriteLine("Modelo....:");
+			string modelo = Console.ReadLine();
+			Console.WriteLine("Processador....:");
+			string processador = Console.ReadLine();
+			Console.WriteLine("Quantidade de Armazenamento em GB...:");
+			float hd = float.Parse(Console.ReadLine());
+			Console.WriteLine("Memória RAM...:");
+			float ram = float.Parse(Console.ReadLine());
+			Console.WriteLine("Wifi...:");
+			string wifi = "Desligado";
+			Console.WriteLine(wifi);
+			string musica = "";
+			
+			Console.WriteLine("\n");
+			
+			//Chamada do Método CriaComputador
+			comp[i].CriaComputador(marca, modelo, processador, hd, ram, wifi, musica);
+		}
+	
+		
+		int status = 0;
+		
+		while (status == 0)
+		{	
+			Console.WriteLine("Busca Computador #");
+			int n_comp = int.Parse(Console.ReadLine());
+			n_comp=n_comp-1;
+			Console.WriteLine(comp[n_comp].BuscaComputador());
+			Console.WriteLine("Deseja ligar ou desligar o Wifi? L/D");
+			string wifistatus = Console.ReadLine();
+			
+				//WIFI LIGADO
+			if (wifistatus == "L" || wifistatus == "l") {
+				comp[n_comp].LigaWifi();
+				Console.WriteLine(comp[n_comp].BuscaComputador());
+			
+				//REPRODUZIR MUSICA:
+				Console.WriteLine("Deseja Reproduzir Alguma Música? S/N");
+				string compestado = Console.ReadLine();
+					if (compestado == "S" || compestado == "s") {
+					Console.WriteLine("Qual o nome da música? ");
+					string musica = Console.ReadLine();
+					comp[n_comp].ReproduzirMusica(musica);
+					Console.WriteLine(comp[n_comp].BuscaComputador());
+					}
+			 
+			}
+				//WIFI DESLIGADO
+			if (wifistatus == "D" || wifistatus == "d") {
+				comp[n_comp].DesligaWifi();
+				
+				//DESLIGA A MUSICA
+				comp[n_comp].DesligaMusica();
+				Console.WriteLine(comp[n_comp].BuscaComputador());
+			}
+			
+			
+			Console.WriteLine("Deseja sair? S/N");
+			string sair = Console.ReadLine();
+			
+			if (sair == "S" || sair == "s")
+			{
+				status = 1;
+			}
+		}
+	}
+}

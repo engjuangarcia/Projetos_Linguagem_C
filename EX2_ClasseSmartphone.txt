@@ -1,0 +1,134 @@
+using System;
+
+//Classe Smartphone
+public class Smartphone
+{
+	//Define Atributos
+	private string Marca;
+	private string Modelo;
+	private float Ano;
+	private string Processador;
+	private float Armazenamento;
+	private string Estado;
+	private string Numero;
+
+	//Define Métodos
+	public void CriaSmartphone(string m, string n, float a, string p, float ar, string e, string num)
+	{
+		this.Marca = m;
+		this.Modelo = n;
+		this.Ano = a;
+		this.Processador = p;
+		this.Armazenamento = ar;
+		this.Estado = e;
+		this.Numero = num;
+	}
+	
+	public string BuscaSmartphone()
+	{
+		string smartphone;
+		smartphone = this.Marca + " " + this.Modelo + " " + this.Ano + " " + this.Processador + " " + this.Armazenamento + " Status:" + this.Estado + this.Numero;
+		return smartphone;
+	}
+		//MÉTODOS PARA DEFINIR O STATUS DO SMARTPHONE
+	public void LigaSmartphone()
+	{
+		this.Estado = "Ligado";
+	}
+	public void DesligaSmartphone()
+	{
+		this.Estado = "Desligado";
+	}
+	
+		//MÉTODOS PARA LIGAR PARA UM NÚMERO
+	public void LigaNumero(string n)
+	{
+		string num = n;
+		this.Numero = " Discando:" + num;
+	}
+	public void DesligaNumero()
+	{
+		this.Numero = "";
+	}
+}
+
+//Programa Principal
+public class Program
+{
+	public static void Main()
+	{
+		Console.WriteLine("Crie Objetos da Classe Smartphone");
+		Console.WriteLine("Insira a Quantidade de Smartphones:");
+		
+		int n = int.Parse(Console.ReadLine());
+		
+		//Cria Vetor de Objetos do tipo Smartphone
+		Smartphone[] smr = new Smartphone[n];
+		
+		for (int i = 0; i < n; i++)
+		{
+			//Instancia Novo Objeto da Classe Calculadora
+			smr[i] = new Smartphone();
+			
+			Console.WriteLine("---------------");
+			Console.WriteLine("Smartphone #" + (i+1));
+			Console.WriteLine("Marca....:");
+			string marca = Console.ReadLine();
+			Console.WriteLine("Modelo....:");
+			string modelo = Console.ReadLine();
+			Console.WriteLine("Ano....:");
+			float ano = float.Parse(Console.ReadLine());
+			Console.WriteLine("Processador....:");
+			string processador = Console.ReadLine();
+			Console.WriteLine("Quantidade de Armazenamento em GB...:");
+			float armazenamento = float.Parse(Console.ReadLine());
+			string e = "Desligado";
+			string num = "";
+			
+			Console.WriteLine("\n");
+			
+			//Chamada do Método CriaSmartphone
+			smr[i].CriaSmartphone(marca, modelo, ano, processador, armazenamento, e, num);
+		}
+	
+		
+		int status = 0;
+		
+		while (status == 0)
+		{	
+			Console.WriteLine("Busca Smartphone #");
+			int n_smr = int.Parse(Console.ReadLine());
+			n_smr=n_smr-1;
+			Console.WriteLine(smr[n_smr].BuscaSmartphone());
+			
+			Console.WriteLine("Deseja Ligar ou Desligar o Smartphone? L/D");
+			string smrestado = Console.ReadLine();
+				if (smrestado == "L" || smrestado == "l") {
+					smr[n_smr].LigaSmartphone();
+					
+					//REALIZAR UMA LIGAÇÃO
+				Console.WriteLine("Deseja Realizar uma Ligação? S/N");
+				string smrestado1 = Console.ReadLine();
+					if (smrestado1 == "S" || smrestado1 == "s") {
+						Console.WriteLine("Disque o Número que Deseja Telefonar: ");
+						string numero = Console.ReadLine();
+						smr[n_smr].LigaNumero(numero);
+						Console.WriteLine(smr[n_smr].BuscaSmartphone());
+						}
+					}
+				if (smrestado == "D" || smrestado == "d") {
+					smr[n_smr].DesligaSmartphone();
+					smr[n_smr].DesligaNumero();
+					Console.WriteLine(smr[n_smr].BuscaSmartphone());
+					}
+			
+			Console.WriteLine("Deseja sair? S/N");
+			string sair = Console.ReadLine();
+			
+			if (sair == "S" || sair == "s")
+			{
+				status = 1;
+			}
+		}
+	}
+}

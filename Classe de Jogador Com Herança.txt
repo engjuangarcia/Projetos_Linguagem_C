@@ -1,0 +1,156 @@
+using System;
+
+//Superclasse Jogador
+public class Jogador
+{
+	//Define Atributos
+	private float Altura;
+	private string Nome;
+	private float Velocidade;
+	
+	//Define Métodos
+	public void CriaJogador(float a, string n, float v)
+	{
+		this.Altura = a;
+		this.Nome = n;
+		this.Velocidade = v;
+	}
+	
+	public float BuscaAltura()
+	{
+		return this.Altura;	
+	}
+	
+	public string BuscaNome()
+	{
+		return this.Nome;	
+	}
+	
+	public float BuscaVelocidade()
+	{
+		return this.Velocidade;	
+	}
+}
+
+//Subclasse Goleiro
+public class Goleiro:Jogador
+{
+	//Define Atributos Específicos da subclasse
+	private string TipoMao;
+	
+	//Define Métodos
+	public void CriaGoleiro(float a, string n, float v, string m)
+	{
+		this.CriaJogador(a,n,v);
+		this.TipoMao = m;
+	}
+	
+	public string BuscaGoleiro()
+	{
+		string saida;
+		saida = this.BuscaNome() + "\n" + this.BuscaAltura() + "\n" + this.BuscaVelocidade() + "\n" + this.TipoMao;
+		return saida;
+	}
+}
+
+//Subclasse Jogador de Linha
+public class JogLinha:Jogador
+{
+	//Define Atributos Específicos da subclasse
+	private string TipoPe;
+	private string Posicao;
+	
+	//Define Métodos
+	public void CriaJogLinha(float a, string n, float v, string pe, string pos)
+	{
+		this.CriaJogador(a,n,v);
+		this.TipoPe = pe;
+		this.Posicao = pos;
+	}
+	
+	public string BuscaJogLinha()
+	{
+		string saida;
+		saida = this.BuscaNome() + "\n" + this.BuscaAltura() + "\n" + this.BuscaVelocidade() + "\n" + this.TipoPe + "\n" + this.Posicao;
+		return saida;
+	}
+}
+
+public class Program
+{
+	public static void Main()
+	{
+		Console.WriteLine("Criar objetos das subclasses Goleiro e Jogador de Linha");
+		Console.WriteLine("Entre com a quantidade de jogadores....:");
+		
+		int n = int.Parse(Console.ReadLine());
+		
+		//Instancia vetor de objetos da subclasse JogLinha
+		JogLinha[] vet_jog = new JogLinha[n-1];
+		
+		//Instacia objeto da subclasse Goleiro
+		Goleiro jog1 = new Goleiro();
+		
+		for (int i = 0; i < n; i++)
+		{
+			//Recebe os dados informados pelo usuário
+			Console.WriteLine("------------");
+			Console.WriteLine("Nome.......:");
+			string nome = Console.ReadLine();
+			Console.WriteLine("Altura.....:");
+			float alt = float.Parse(Console.ReadLine());
+			Console.WriteLine("Velocidade.:");
+			float vel = float.Parse(Console.ReadLine());
+			
+			if (i == 0)
+			{
+				Console.WriteLine("Tipo de Mão.:");
+				string tipo_m = Console.ReadLine();
+				
+				jog1.CriaGoleiro(alt, nome, vel, tipo_m);
+			}
+			else
+			{
+				Console.WriteLine("Tipo de Pé.:");
+				string tipo_p = Console.ReadLine();
+				Console.WriteLine("Posição...:");
+				string posicao = Console.ReadLine();
+					
+				//Instancia cada objeto da subclasse JogLinha
+				vet_jog[i-1] = new JogLinha();
+				vet_jog[i-1].CriaJogLinha(alt,nome,vel,tipo_p,posicao);
+			}
+			Console.Clear();
+		}
+		
+		int status = 0;
+		
+		while (status == 0)
+		{
+			Console.WriteLine("Busca Jogador #...:");
+			int n_jog = int.Parse(Console.ReadLine());
+			
+			if (n_jog == 1)
+			{
+				Console.WriteLine(jog1.BuscaGoleiro());	
+			}
+			else
+			{
+				Console.WriteLine(vet_jog[n_jog-2].BuscaJogLinha());	
+			}
+			Console.WriteLine("\n");
+			
+			Console.WriteLine("Deseja Sair? s/n");
+			string sair = Console.ReadLine();
+			
+			if (sair == "S" || sair == "s")
+			{
+				status = 1;	
+			}
+			else
+			{
+				Console.Clear();	
+			}
+		}
+	}
+}

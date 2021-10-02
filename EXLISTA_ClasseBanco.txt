@@ -1,0 +1,266 @@
+using System;
+
+//Superclasse Banco
+public class Banco
+{
+	//Define Atributos
+	public string NomeBanco;
+	public string Agência;
+	
+	//Define Banco
+	public void CriarBanco(string b, string a)
+	{
+		this.NomeBanco = b;
+		this.Agência = a;
+	}
+	
+	//Define Saldo
+	public float Saldo()
+	{
+		return 0;
+	}
+	public string Login(string l)
+	{
+		string login = l;
+		return l;
+	}
+}
+
+//Subclasse Cliente
+public class Cliente:Banco
+{
+	//Define Atributos
+	private string login;
+	private float saldo;
+	
+	//Define Login
+	public string Login()
+	{
+		return this.login;
+	}
+	
+	//Define Saldo
+	public float Saldo(float s)
+	{
+		this.saldo = s;	
+		return this.saldo;
+	}
+	
+	
+	public void CriaCliente(string b, string a, string l, float s)
+	{
+		this.NomeBanco = b;
+		this.Agência = a;
+		this.login = l;
+		this.saldo = s;
+	}
+	//Busca Cliente
+	public string BuscaCliente()
+	{
+		string cliente;
+		cliente ="Banco: " + this.NomeBanco + " Agência: " + this.Agência +" Cliente:" + this.login + " Saldo:" + this.saldo;
+		return cliente;
+	}
+	//Busca Cliente
+	public string RemoveCliente()
+	{
+		this.NomeBanco = "";
+		this.Agência = "";
+		this.login = "";
+		this.saldo = 0;
+		string cliente;
+		cliente ="Banco: " + this.NomeBanco + " Agência: " + this.Agência +" Cliente:" + this.login + " Saldo:" + this.saldo;
+		return cliente;
+	}
+	//Métodos Relativos ao Saldo do Cliente
+	public void EfetuarDepósito(float so)
+	{
+		float soma = so;
+		this.saldo = this.saldo + soma;
+	}
+	public void EfetuarSaque(float sa)
+	{
+		float saque = sa;
+		this.saldo = this.saldo - saque;
+	}
+	//Métodos para Transferencia
+	public void EfetuarReceberTransferência(float so)
+	{
+		float soma = so;
+		this.saldo = this.saldo + soma;
+	}
+	public void EfetuarTransferência(float sa)
+	{
+		float saque = sa;
+		this.saldo = this.saldo - saque;
+	}
+
+}
+
+//Programa Principal
+public class Program
+{
+	public static void Main()
+	{
+		Console.WriteLine("Entre com o seu Banco");
+		string banco = Console.ReadLine();
+		Console.WriteLine("Insira o número da Agência:");
+		string agencia = Console.ReadLine();
+		Console.WriteLine("Registro Inicial");	
+		Console.WriteLine("Insira a Quantidade Total de Clientes que deseja criar:");
+		int n = int.Parse(Console.ReadLine());
+			
+		//Cria Vetor de Objetos do tipo Caixa Eletrônico
+		Cliente[] cli = new Cliente[n];
+		
+		for (int i = 0; i < n; i++)
+		{
+			//Instancia Novo Objeto da Classe Caixa
+			cli[i] = new Cliente();
+			Console.WriteLine("Qual o Nome do Cliente Número " + (i+1) + "?");
+			string nome = Console.ReadLine();
+			cli[i].Login(nome);
+			Console.WriteLine("Qual o Saldo do Cliente Número " + (i+1) + "?");
+			float s = float.Parse(Console.ReadLine());
+			cli[i].Saldo(s);
+			
+			//Chamada do Método CriaCliente
+			cli[i].CriaCliente(banco, agencia, cli[i].Login(nome), cli[i].Saldo(s));
+			
+		}
+		
+		Console.WriteLine("Deseja gerenciar as contas existentes?");
+		string tipo2 = Console.ReadLine();
+		if (tipo2 == "Sim" || tipo2 == "sim" || tipo2 == "S") {
+			Console.WriteLine("Deseja remover um Cliente? S/N");
+			string gerestado = Console.ReadLine();
+			if (gerestado == "S" || gerestado == "s") {
+			Console.WriteLine("Qual o número do Cliente que deseja remover? ");
+			int clienterem = int.Parse(Console.ReadLine());
+				clienterem = clienterem - 1;
+				cli[clienterem].RemoveCliente();
+			Console.WriteLine("Cliente Removido");
+			}
+			
+			Console.WriteLine("Deseja criar um Cliente? S/N");
+			string gerestado1 = Console.ReadLine();
+			if (gerestado1 == "S" || gerestado1 == "s") {
+			
+			//Pergunta ao usuário qual o número do cliente
+			Console.WriteLine("Insira o Número do Cliente Novo: ");
+			int m = int.Parse(Console.ReadLine());
+				m = m - 1;
+				if (cli[m].Login() == "") {
+					//Instancia Novo Objeto da Classe Caixa
+			cli[m] = new Cliente();
+			Console.WriteLine("Qual o Nome do Cliente Número " + (m+1) + "?");
+			string nome = Console.ReadLine();
+			cli[m].Login(nome);
+			Console.WriteLine("Qual o Saldo do Cliente Número " + (m+1) + "?");
+			float s = float.Parse(Console.ReadLine());
+			cli[m].Saldo(s);
+			
+			//Chamada do Método CriaCliente Novo
+			cli[m].CriaCliente(banco, agencia, cli[m].Login(nome), cli[m].Saldo(s));
+				}
+					//MENSAGEM CASO O CLIENTE JÁ EXISTA
+				else {
+				Console.WriteLine("Cliente já existente, para recriá-lo favor remover primeiro");
+				}
+			}
+			//Printa todas as contas
+			Console.WriteLine("...............................");
+			for (int i = 0; i < n; i++)
+			{
+				if (cli[i].Login() == "") 
+				{Console.WriteLine("");}
+				else {Console.WriteLine(cli[i].BuscaCliente());}
+			}				
+		}
+				
+		int status = 0;
+		
+		while (status == 0)
+		{	
+			Console.WriteLine("Busca Cliente (Insira o Número do Cliente) #");
+			int n_cli = int.Parse(Console.ReadLine());
+			n_cli=n_cli-1;
+			
+			//MENSAGEM DE ERRO CASO CLIENTE TENHA SIDO REMOVIDO
+			if (cli[n_cli].Login() == "") {
+				Console.WriteLine("Cliente Inexistente");
+				}
+			else {	Console.WriteLine(cli[n_cli].BuscaCliente());	
+				Console.WriteLine("Deseja acessar a Conta? S/N");
+				string cliestado1 = Console.ReadLine();
+					if (cliestado1 == "S" || cliestado1 == "s") 
+					{
+						
+						int status_cli = 0;
+						while (status_cli == 0) 
+						{						
+						Console.WriteLine("Deseja Depositar, Sacar, Transferir ou Consultar Saldo? D/S/T/CS ");
+						string cliestado2 = Console.ReadLine();
+						
+							//CONSULTA O SALDO
+						if (cliestado2 == "CS" || cliestado2 == "cs") {
+							Console.WriteLine(cli[n_cli].BuscaCliente());
+							}
+							//CONSULTA O VALOR A SER DEPOSITADO
+						if (cliestado2 == "D" || cliestado2 == "d") {
+							Console.WriteLine("Digite o valor a ser Depositado");
+							float nu1 = float.Parse(Console.ReadLine());
+							cli[n_cli].EfetuarDepósito(nu1);
+							Console.WriteLine(cli[n_cli].BuscaCliente());
+							}
+							//CONSULTA O VALOR A SER SACADO
+						if (cliestado2 == "S" || cliestado2 == "s") {
+							Console.WriteLine("Digite o valor a ser Sacado");
+							float nu2 = float.Parse(Console.ReadLine());
+							cli[n_cli].EfetuarSaque(nu2);
+							Console.WriteLine(cli[n_cli].BuscaCliente());
+							}
+							
+							//CONSULTA O VALOR A SER TRANSFERIDO
+						if (cliestado2 == "T" || cliestado2 == "t") {
+							Console.WriteLine("Digite o valor a ser Transferido: ");
+							float nu2 = float.Parse(Console.ReadLine());
+							Console.WriteLine("Digite o Número da Conta do Cliente: ");
+							int ncli = int.Parse(Console.ReadLine());
+							ncli=ncli-1;
+									//MENSAGEM DE ERRO CASO CLIENTE TENHA SIDO REMOVIDO
+								if (cli[ncli].Login() == "") {
+								Console.WriteLine("Cliente Inexistente");
+								}
+									//PROGRAMA CASO CLIENTE NÃO TENHA SIDO REMOVIDO
+								else {
+								cli[ncli].EfetuarReceberTransferência(nu2);
+								cli[n_cli].EfetuarTransferência(nu2);
+								Console.WriteLine(cli[ncli].BuscaCliente());
+								Console.WriteLine(cli[n_cli].BuscaCliente());}
+							}
+								//PERGUNTA SE O USUÁRIO DESEJA FAZER MAIS ALGUMA CONTA
+							Console.WriteLine("Deseja fazer mais alguma transação? S/N");
+							string cliestado3 = Console.ReadLine();
+							if (cliestado3 == "N" || cliestado3 == "n")
+							{
+							status_cli = 1;
+							}					
+						}
+					}
+			 }
+			
+			//CÓDIGO PARA SAIR DO PROGRAMA
+			Console.WriteLine("Deseja sair? S/N");
+			string sair = Console.ReadLine();
+			if (sair == "S" || sair == "s")
+				{
+					status = 1;
+				}
+			}
+			
+		}
+			
+	}
+
+		

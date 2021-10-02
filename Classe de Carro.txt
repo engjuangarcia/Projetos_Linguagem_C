@@ -1,0 +1,112 @@
+using System;
+
+//Classe Carro
+public class Carro
+{
+	//Define Atributos
+	private string Marca;
+	private string Modelo;
+	private float Ano;
+	private string Cor;
+	private float posicao_x;
+	private float posicao_y;
+	private float velocidade;
+	
+	//Define Métodos
+	public void CriaCarro(string m, string n, float a, string c, float v, float x, float y)
+	{
+		this.Marca = m;
+		this.Modelo = n;
+		this.Ano = a;
+		this.Cor = c;
+		this.velocidade = v;
+		this.posicao_x = x;
+		this.posicao_y = y;
+	}
+	
+	public string BuscaCarro()
+	{
+		string carro;
+		carro = this.Marca + " " + this.Modelo + " " + this.Ano + " " + this.Cor + " [" + this.posicao_x + "," + this.posicao_y + "]";
+		return carro;
+	}
+	
+	public void MoveCarro()
+	{
+		this.posicao_x = this.posicao_x + this.velocidade;
+		this.posicao_y = this.posicao_y + this.velocidade;
+	}
+}
+
+//Programa Principal
+public class Program
+{
+	public static void Main()
+	{
+		Console.WriteLine("Criar objetos da Classe Carro");
+		Console.WriteLine("Entre com a quantidade de Carros....:");
+		
+		int n = int.Parse(Console.ReadLine());
+		
+		//Cria Vetor de Objetos do tipo Jogador
+		Carro[] car = new Carro[n];
+		
+		for (int i = 0; i < n; i++)
+		{
+			//Instancia Novo Objeto da Classe Jogador
+			car[i] = new Carro();
+			
+			Console.WriteLine("---------------");
+			Console.WriteLine("Carro #" + i);
+			Console.WriteLine("Marca....:");
+			string marca = Console.ReadLine();
+			Console.WriteLine("Modelo....:");
+			string modelo = Console.ReadLine();
+			Console.WriteLine("Ano....:");
+			float ano = float.Parse(Console.ReadLine());
+			Console.WriteLine("Cor....:");
+			string cor = Console.ReadLine();
+			Console.WriteLine("Velocidade....:");
+			float vel = float.Parse(Console.ReadLine());
+			Console.WriteLine("X....:");
+			float pos_x = float.Parse(Console.ReadLine());
+			Console.WriteLine("Y....:");
+			float pos_y = float.Parse(Console.ReadLine());
+			
+			Console.WriteLine("\n");
+			
+			//Chamada do Método CriaJogador
+			car[i].CriaCarro(marca, modelo, ano, cor, vel, pos_x, pos_y);
+		}
+		
+		Console.WriteLine("Movimenta Carro #");
+		int n_car = int.Parse(Console.ReadLine());
+		Console.WriteLine(car[n_car].BuscaCarro());
+		
+		car[n_car].MoveCarro();
+		
+		Console.WriteLine(car[n_car].BuscaCarro());
+		
+		car[n_car].MoveCarro();
+		
+		Console.WriteLine(car[n_car].BuscaCarro());
+		
+		int status = 0;
+		
+		while (status == 0)
+		{	
+			Console.WriteLine("Busca Carro #");
+			n_car = int.Parse(Console.ReadLine());
+		
+			Console.WriteLine(car[n_car].BuscaCarro());
+		
+			Console.WriteLine("Deseja sair? S/N");
+			string sair = Console.ReadLine();
+			
+			if (sair == "S" || sair == "s")
+			{
+				status = 1;
+			}
+		}
+	}
+}

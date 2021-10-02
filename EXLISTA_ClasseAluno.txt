@@ -1,0 +1,273 @@
+using System;
+
+//Superclasse Ano Escolar
+public class AnoEscolar
+{
+	//Define Atributos
+	public string Ano;
+	
+	//Define Criar Ano
+	public void CriarAno(string a)
+	{
+		this.Ano = a;
+	}
+	
+	//Define Média
+	public float Média()
+	{
+		return 0;
+	}
+}
+
+//Subclasse Aluno
+public class Aluno:AnoEscolar
+{
+	//Define Atributos
+	private string aluno;
+	private double Português;
+	private double Inglês;
+	private double História;
+	private double Matemática;
+	private double Física;
+	private double Química;
+	private double Biologia;
+	private double Geografia;
+	private double Filosofia;
+	
+	
+	//Define Aluno
+	public string NomeAluno(string a)
+	{
+		this.aluno = a;
+		return this.aluno;
+	}
+
+	public void CriaAluno(string n,double p, double i, double h, double m, double f, double q, double b, double g, double F)
+	{
+		this.aluno = n;
+		this.Português = p;
+		this.Inglês = i;
+		this.História = h;
+		this.Matemática = m;
+		this.Física = f;
+		this.Química = q;
+		this.Biologia = b;
+		this.Geografia = g;
+		this.Filosofia = F;
+
+		}
+	//Busca Aluno
+	public string BuscaAluno()
+	{
+		string aluno;
+		aluno ="Nome do Aluno: " + this.aluno +"\n \n Português: " + this.Português + "\n Inglês: " + this.Inglês + "\n História: " + this.História + "\n Matemática: " + this.Matemática + "\n Física: "+ this.Física + "\n Química: "+ this.Química + "\n Biologia: "+ this.Biologia + "\n Geografia: "+ this.Geografia + "\n Filosofia: "+ this.Filosofia;
+		return aluno;
+	}
+
+	//Método que Define a MédiaTotal
+	public double Média()
+	{
+		double m;	
+		m = (this.Português + this.Inglês + this.História + this.Matemática + this.Física + this.Química + this.Biologia + this.Geografia + this.Filosofia)/9;	
+		return m;
+	}
+	
+	public void MédiaPortuguês(double p1, double p2, double p3)
+	{
+		double s;
+		s	= (p1+p2+p3)/3;
+		this.Português = s;
+	}
+	public double P() {
+		return this.Português;
+	}
+	public void MédiaInglês (double n1, double n2, double n3)
+	{
+		this.Inglês = (n1+n2+n3)/3;
+	}
+	public double I() {
+		return this.Inglês;
+	}
+	public void MédiaHistória (double n1, double n2, double n3)
+	{
+		this.História = (n1+n2+n3)/3;
+	}
+	public double H() {
+		return this.História;
+	}
+	public void MédiaMatemática (double n1, double n2, double n3)
+	{
+		this.Matemática = (n1+n2+n3)/3;
+	}
+	public double M() {
+		return this.Matemática;
+	}
+	public void MédiaFísica (double n1, double n2, double n3)
+	{
+		this.Física = (n1+n2+n3)/3;
+	}
+	public double f() {
+		return this.Física;
+	}
+	public void MédiaQuímica (double n1, double n2, double n3)
+	{
+		this.Química = (n1+n2+n3)/3;
+	}
+	public double Q() {
+		return this.Química;
+	}
+	public void MédiaBiologia (double n1, double n2, double n3)
+	{
+		this.Biologia = (n1+n2+n3)/3;
+	}
+	public double B() {
+		return this.Biologia;
+	}
+	public void MédiaGeografia (double n1, double n2, double n3)
+	{
+		this.Geografia = (n1+n2+n3)/3;
+	}
+	public double G() {
+		return this.Geografia;
+	}
+	public void MédiaFilosofia (double n1, double n2, double n3)
+	{
+		this.Filosofia = (n1+n2+n3)/3;
+	}
+	public double F() {
+		return this.Filosofia;
+	}
+}
+
+//Programa Principal
+public class Program
+{
+	public static void Main()
+	{
+		Console.WriteLine("Entre com o seu Ano Escolar: ");
+		string banco = Console.ReadLine();
+		Console.WriteLine("Insira a Quantidade de Alunos:");
+		int n = int.Parse(Console.ReadLine());
+			
+		//Cria Vetor de Objetos do tipo Aluno
+		Aluno[] alu = new Aluno[n];
+		
+		for (int i = 0; i < n; i++)
+		{
+			//Instancia Novo Objeto da Classe Aluno
+			alu[i] = new Aluno();
+			Console.WriteLine("Qual o Nome do Aluno Número " + (i+1) + "?");
+			string nome = Console.ReadLine();
+			alu[i].NomeAluno(nome);
+			Console.Clear();	
+			
+			Console.WriteLine("Qual a Nota N1 de Português do Aluno " + (i+1) + "?");
+			double P1= double.Parse(Console.ReadLine());
+			Console.WriteLine("Qual a Nota N2 de Português do Aluno " + (i+1) + "?");
+			double P2= double.Parse(Console.ReadLine());
+			Console.WriteLine("Qual a Nota N3 de Português do Aluno " + (i+1) + "?");
+			double P3= double.Parse(Console.ReadLine());
+			alu[i].MédiaPortuguês(P1,P2,P3);
+			Console.Clear();	
+			
+			Console.WriteLine("Qual a Nota N1 de Inglês do Aluno " + (i+1) + "?");
+			double I1= double.Parse(Console.ReadLine());
+			Console.WriteLine("Qual a Nota N2 de Inglês do Aluno " + (i+1) + "?");
+			double I2= double.Parse(Console.ReadLine());
+			Console.WriteLine("Qual a Nota N3 de Inglês do Aluno " + (i+1) + "?");
+			double I3= double.Parse(Console.ReadLine());
+			alu[i].MédiaInglês(I1,I2,I3);
+			Console.Clear();
+			
+			Console.WriteLine("Qual a Nota N1 de História do Aluno " + (i+1) + "?");
+			double H1= double.Parse(Console.ReadLine());
+			Console.WriteLine("Qual a Nota N2 de História do Aluno " + (i+1) + "?");
+			double H2= double.Parse(Console.ReadLine());
+			Console.WriteLine("Qual a Nota N3 de História do Aluno " + (i+1) + "?");
+			double H3= double.Parse(Console.ReadLine());
+			alu[i].MédiaHistória(H1,H2,H3);
+			Console.Clear();
+			
+			Console.WriteLine("Qual a Nota N1 de Matemática do Aluno " + (i+1) + "?");
+			double M1= double.Parse(Console.ReadLine());
+			Console.WriteLine("Qual a Nota N2 de Matemática do Aluno " + (i+1) + "?");
+			double M2= double.Parse(Console.ReadLine());
+			Console.WriteLine("Qual a Nota N3 de Matemática do Aluno " + (i+1) + "?");
+			double M3= double.Parse(Console.ReadLine());
+			alu[i].MédiaMatemática(M1,M2,M3);
+			Console.Clear();
+			
+			Console.WriteLine("Qual a Nota N1 de Física do Aluno " + (i+1) + "?");
+			double f1= double.Parse(Console.ReadLine());
+			Console.WriteLine("Qual a Nota N2 de Física do Aluno " + (i+1) + "?");
+			double f2= double.Parse(Console.ReadLine());
+			Console.WriteLine("Qual a Nota N3 de Física do Aluno " + (i+1) + "?");
+			double f3= double.Parse(Console.ReadLine());
+			alu[i].MédiaFísica(f1,f2,f3);
+			Console.Clear();
+			
+			Console.WriteLine("Qual a Nota N1 de Química do Aluno " + (i+1) + "?");
+			double Q1= double.Parse(Console.ReadLine());
+			Console.WriteLine("Qual a Nota N2 de Química do Aluno " + (i+1) + "?");
+			double Q2= double.Parse(Console.ReadLine());
+			Console.WriteLine("Qual a Nota N3 de Química do Aluno " + (i+1) + "?");
+			double Q3= double.Parse(Console.ReadLine());
+			alu[i].MédiaQuímica(Q1,Q2,Q3);
+			Console.Clear();
+			
+			Console.WriteLine("Qual a Nota N1 de Biologia do Aluno " + (i+1) + "?");
+			double B1= double.Parse(Console.ReadLine());
+			Console.WriteLine("Qual a Nota N2 de Biologia do Aluno " + (i+1) + "?");
+			double B2= double.Parse(Console.ReadLine());
+			Console.WriteLine("Qual a Nota N3 de Biologia do Aluno " + (i+1) + "?");
+			double B3= double.Parse(Console.ReadLine());
+			alu[i].MédiaBiologia(B1,B2,B3);
+			Console.Clear();
+			
+			Console.WriteLine("Qual a Nota N1 de Geografia do Aluno " + (i+1) + "?");
+			double G1= double.Parse(Console.ReadLine());
+			Console.WriteLine("Qual a Nota N2 de Geografia do Aluno " + (i+1) + "?");
+			double G2= double.Parse(Console.ReadLine());
+			Console.WriteLine("Qual a Nota N3 de Geografia do Aluno " + (i+1) + "?");
+			double G3= double.Parse(Console.ReadLine());
+			alu[i].MédiaGeografia(G1,G2,G3);
+			Console.Clear();
+			
+			Console.WriteLine("Qual a Nota N1 de Filosofia do Aluno " + (i+1) + "?");
+			double F1= double.Parse(Console.ReadLine());
+			Console.WriteLine("Qual a Nota N2 de Filosofia do Aluno " + (i+1) + "?");
+			double F2= double.Parse(Console.ReadLine());
+			Console.WriteLine("Qual a Nota N3 de Filosofia do Aluno " + (i+1) + "?");
+			double F3= double.Parse(Console.ReadLine());
+			alu[i].MédiaFilosofia(F1,F2,F3);
+			Console.Clear();
+			
+			//Chamada do Método CriaCliente
+			alu[i].CriaAluno(alu[i].NomeAluno(nome),alu[i].P(), alu[i].I(), alu[i].H(), alu[i].M(), alu[i].f(),alu[i].Q(),alu[i].B(), alu[i].G(), alu[i].F());
+			
+		}
+		
+		int status = 0;
+		
+		while (status == 0)
+		{
+		Console.WriteLine("Busca Aluno #...:");
+		int n_alu = int.Parse(Console.ReadLine());
+		n_alu = n_alu -1;
+		Console.Clear();
+		Console.WriteLine("Notas do Aluno " + (n_alu+1) + ":");
+		Console.WriteLine(alu[n_alu].BuscaAluno());
+		Console.WriteLine("\n \n Média Total: " + alu[n_alu].Média());
+		
+		Console.WriteLine("Deseja sair? S/N");
+		string alu_cond = Console.ReadLine();
+		if (alu_cond == "S" || alu_cond == "s") {
+		status = 1;
+		}
+		}
+			
+		}
+			
+	}
+
+		

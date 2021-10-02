@@ -1,0 +1,638 @@
+using System;
+
+//Superclasse Jogo
+public class Jogo
+{
+	//Define Atributos
+	public float vida;
+	
+	//Define a Vida
+	public float Vida()
+	{
+		return this.vida;
+	}
+}
+
+//Subclasse Jogador 
+public class Jogador:Jogo
+{
+	//Define Atributos
+	private string NomeJogador;
+	
+	//Cria Jogador
+	public void CriaJogador(string n, float v)
+	{
+		this.NomeJogador = n;
+		this.vida = v;
+	}
+	//Busca Jogador
+	public string BuscaJogador()
+	{
+		string jogador1;
+		jogador1 ="\nNome: " +this.NomeJogador + " Vida: " + this.vida;
+		return jogador1;
+	}
+	//Métodos Relativos ao Dano do Jogador - Inimigos Iniciais
+	public void TomarDano(float so)
+	{
+		float dano = so;
+		this.vida = this.vida - dano;
+	}
+	public float Vida()
+	{
+		this.vida = 50;
+		return this.vida;
+	}
+		//Define a Vida
+	public float VidaExtra()
+	{
+		this.vida = 10000000;
+		return this.vida;
+	}
+			//Define a Vida
+	public float Morte()
+	{
+		this.vida = 0;
+		return this.vida;
+	}
+}
+//Subclasse Inimigo 
+public class Inimigo:Jogo
+{
+	//Define Atributos
+	private string NomeInimigo;
+	
+	//Cria Jogador
+	public void CriaInimigo(string n, float v)
+	{
+		this.NomeInimigo = n;
+		this.vida = v;
+	}
+	//Busca Inimigo
+	public string BuscaInimigo()
+	{
+		string inimigo;
+		inimigo = "Inimigo: " + this.NomeInimigo + " Vida: " + this.vida;
+		return inimigo;
+	}
+	//Métodos Relativos ao Dano do Jogador - Inimigos Iniciais
+	public void TomarDano(float so)
+	{
+		float dano = so;
+		this.vida = this.vida - dano;
+	}
+	public float Vida()
+	{
+		this.vida = 50;
+		return this.vida;
+	}
+}
+//Subclasse Inimigo Final (BOSS) 
+public class BOSS:Jogo
+{
+	//Define Atributos
+	private string NomeBOSS;
+	
+	//Cria Inimigo
+	public void CriaBOSS(string n, float v)
+	{
+		this.NomeBOSS = n;
+		this.vida = v;
+	}
+	//Busca Inimigo
+	public string BuscaBOSS()
+	{
+		string boss;
+		boss = "Inimigo: " + this.NomeBOSS + " Vida: " + this.vida;
+		return boss;
+	}
+		//Define a Vida
+	public float Vida()
+	{
+		this.vida = 200;
+		return this.vida;
+	}
+	//Define a Vida
+	public float Morte()
+	{
+		this.vida = 0;
+		return this.vida;
+	}
+	//Métodos Relativos ao Dano do Jogador - Inimigos Iniciais
+	public void TomarDano(float so)
+	{
+		float dano = so;
+		this.vida = this.vida - dano;
+	}
+}
+
+//Programa Principal
+public class Program
+{
+	public static void Main()
+	{
+		Console.WriteLine("\n Deseja começar o jogo? Digite Sim \n");
+		string cond1 = Console.ReadLine();
+		if (cond1 == "Sim" || cond1 == "sim" || cond1 == "S" || cond1 == "s") {
+		Console.Clear();
+		//Cria Vetor de Objetos do tipo Caixa Eletrônico
+		Jogador[] jog = new Jogador[1];
+		
+		for (int i = 0; i < 1; i++)
+		{
+			//Instancia Novo Objeto da Classe Jogador
+			jog[i] = new Jogador();
+			Console.WriteLine("Qual o Nome do Jogador? ");
+			string nome = Console.ReadLine();
+			float vida = jog[i].Vida();
+			
+			//Chamada do Método CriaJogador
+			jog[i].CriaJogador(nome, vida);
+			Console.Clear();
+		}
+			
+			//Cria Vetor de Objetos do tipo Inimigo
+		Inimigo[] ini = new Inimigo[2];
+		
+		for (int i = 0; i < 2; i++)
+		{
+			//Instancia Novo Objeto da Classe Jogador
+			ini[i] = new Inimigo();
+			string nome = "" + (i+1);
+			float vida = ini[i].Vida();
+			
+			//Chamada do Método CriaJogador
+			ini[i].CriaInimigo(nome, vida);
+			Console.Clear();
+		
+		}
+			BOSS[] boss = new BOSS[1];
+		
+		for (int i = 0; i < 1; i++)
+		{
+			//Instancia Novo Objeto da Classe Jogador
+			boss[i] = new BOSS();
+			string nome = "BOSS";
+			float vida = boss[i].Vida();
+			
+			//Chamada do Método CriaJogador
+			boss[i].CriaBOSS(nome, vida);
+			Console.Clear();
+		
+		}
+			
+		Console.WriteLine("\n                                   @@########@@"
++"\n                                 @@##((((((((##@@"
++"\n                             (/&&((((((((((((((((&&//"
++"\n                             @@((##************##((@@"
++"\n                           @@####****************####@@"
++"\n                       ##**&&&&//**//******//##****&&&&**##"
++"\n                       *///,,%%//((****//((//,,##*/##,,////"
++"\n                           &&**&&////##&&**....**&&**&&"
++"\n                           @@**##@@##&&**..**&&@@##**@@"
++"\n                           @@//&&  ((&&....&&((  &&//@@"
++"\n                             ((@@**,,  ....  ,***@@(("
++"\n                             @@,,&&&&********&&&&,,@@"
++"\n                           @@,,,,%%############%%,,,,@@"
++"\n                        @@....@@&&############&&@@....@@"
++"\n                         ((%%##@@((##%%****%%##((@@##%%(("
++"\n                               @@@@##((((((((##@@@@"
++"\n                             @@##&&@@@@@@@@@@@@&&##@@"
++"\n                             @@%###&&@@    @@&&####@@"
++"\n                               (((((0(        (((((("
++"\n");	
+			
+		Console.WriteLine(jog[0].BuscaJogador());
+		float easteregg = 0;
+		Console.WriteLine("\n Nossa história começa com um pequeno aventureiro,");
+		Console.WriteLine("\n que decide sair de sua casa para explorar.");
+		Console.WriteLine("\n Gostaria de sair para Explorar? Digite Sim \n");
+		string cond2 = Console.ReadLine();	
+		if (cond2 == "Não" || cond2 == "não" || cond2 == "N" || cond2 == "n") {
+		Console.Clear();
+		jog[0].VidaExtra();
+		Console.WriteLine(
+ "\n                                                 ,//"                                                                                                  
++"\n                                                *,..**"                                                                                                
++"\n                                                ......"                                                                                                
++"\n                                                ......//"                                                                                              
++"\n                                                ......//"                                                                                              
++"\n                       ,%(((                    ......//"                                                                                              
++"\n             *(../(  (((%(((...,**((            ....  //"                                                                                              
++"\n             *(**/(%%(((%(((***,....%           .     //"                                                                                              
++"\n                 %@((....................*%@@@((****,,**@@"                                                                                            
++"\n             *(..,*....,*,,,......,,.....,(*,,@@***/%%(("                                                                                              
++"\n               @@(*****/(***...*(/......(#@*,,@@.,,*@@"                                                                                                
++"\n             *(,,(%%%(((%***(%%/*/@@%   #%@@@@@@,**/@@"                                                                                                
++"\n             /%....%%..,(#%%%  /##,,,   ./@,..@@(((#@@"                                                                                                
++"\n                 (%@@..*%*,,...   ...,,,@#....@@"                                                                                                      
++"\n               ((**@@**(@%%%,,,,,,,,%@@@@#.@@@"                                                                                                        
++"\n                     @@#.((((((*.,(((@@@@#"                                                                                                            
++"\n                   @@....###((((((((/%%%@#"                                                                                                            
++"\n               @@*...../@///%%%%%#...///(%@"                                                                                                           
++"\n                 %@@@@@@@((((///////(@@@&%#@@@"                                                                                                        
++"\n                   @@##%&@@@@@@@@@@@@&&&###@@@"                                                                                                        
++"\n                     @@@@@@@"                                                                                                                          
++"\n" );
+		Console.WriteLine(jog[0].BuscaJogador());
+		Console.WriteLine("\n Você encontrou sua espada mágica dentro de casa,");
+		Console.WriteLine("\n sua vida é infinita agora !!!");
+		Console.WriteLine("\n Vamos Explorar? Digite Sim \n");
+		string cond3 = Console.ReadLine();
+		if (cond3 == "Sim" || cond3 == "sim" || cond3 == "S" || cond3 == "s") {
+		cond2 = "Sim";
+		}
+		
+		easteregg = 1;
+		}
+		if (cond2 == "Sim" || cond2 == "sim" || cond2 == "S" || cond2 == "s") {
+		Console.Clear();
+		
+		Console.WriteLine( "\n                           ..........."                                                                                       
++"\n                       (((//////////...,*((                                  @@@&                 @@@@"                       
++"\n                   ..##(///////////***,,.../*.                                  (@@@          @@@@"                           
++"\n                   (%(((((((/////.....*(%**.*%                               @@@@@@@@@@@@@@@@@@@@@@@@%"                       
++"\n                  %((((((((((((((...//,,*%%/,                                @@@@@@@@@@@@@@@@@@@@@@@@%"                       
++"\n                  @#(%%@%%%%(#%%%(*...@&%@@                              @@@@@@@    @@@@@@@@@@    @@@@@@@"                    
++"\n                  @#(%%%%%,,.,,&%*/(.. *#**@#                         @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"                
++"\n                  @%%@@ %@@@(/*@@./%....*@@                           @@@%   @@@@@@@@@@@@@@@@@@@@@@@@@   @@@@"                
++"\n                   (%   ..((&&&@@.(&//(#%                             @@@%   @@@@@@@@@@@@@@@@@@@@@@@@@   @@@@"                
++"\n                          @@(&@%%@%((((%@                             @@@%   @@@*                 @@@@   @@@@"                
++"\n                        ,*&&#&@,,,#@###/.@@                                     @@@@@@@@   @@@@@@@"                           
++"\n                        %@((/%@,,,#@/////@@"                                                                                  
++"\n                          %%#&@...#@####%"                                                                                    
++"\n                             #@@@@&%%%#%@"                                                                                    
++"\n                               ###%&%%%%#"                                                                                    
++"\n");
+		Console.WriteLine("\n Um Inimigo SURGIU !!!");
+			
+		int statusinimigo = 0;
+		int k=0;
+		int l=0;
+		while (statusinimigo == 0) {
+			
+		
+		Console.WriteLine("\n Deseja Atacar ou Defender? ");
+		string inimigocond1 = Console.ReadLine();
+		
+		if (inimigocond1=="Atacar" || inimigocond1=="atacar" || inimigocond1=="A" || inimigocond1=="a") {
+		Console.Clear();
+		Console.WriteLine( "\n          ((***********.....,*                                               @@@&                 @@@@"                       
++"\n        ##/****************...((                                                (@@@          @@@@"                           
++"\n      *@///*********.......%/*..&.                                           @@@@@@@@@@@@@@@@@@@@@@@@%"                       
++"\n      /@///////***//...((,,,%&((                                             @@@@@@@@@@@@@@@@@@@@@@@@%"                       
++"\n     @@#//#%@##//#&&**.. @@%@@                                           @@@@@@@    @@@@@@@@@@    @@@@@@@"                    
++"\n      /@//#&@.  .,&&**(.   #*,@@                                      @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"                
++"\n        @@#&@@@(/,@@.,&.  .,@@                                        @@@%   @@@@@@@@@@@@@@@@@@@@@@@@@   @@@@"                
++"\n          @%.**@@@@@.,&*,,*@.                                         @@@%   @@@@@@@@@@@@@@@@@@@@@@@@@   @@@@"                
++"\n               @@///@@&@@##@. @@@,                                    @@@%   @@@*                 @@@@   @@@@"                
++"\n               @@///&#...@@@@@//,///////////////.                               @@@@@@@@   @@@@@@@"                           
++"\n             @@//#&&&&@.....(#,,                 .,,/,"                                                                       
++"\n             @@/*******@@@@@%#//.................,//"                                                                         
++"\n                ,@@@@@@@@%%@."                                                                                                
++"\n               @@&*, ,@@@%%@."                                                                                                
++"\n                ,@&&%%%%%@@"                                                                                                  
++"\n                  @@@@@@@"               
++"\n");
+		ini[0].TomarDano(25);
+		jog[0].TomarDano(2);
+		Console.WriteLine(jog[0].BuscaJogador());
+		Console.WriteLine(ini[0].BuscaInimigo());
+		k++;
+		if (k == 2 || l == 10) {
+		statusinimigo = 1;
+		}
+		}
+		
+		if (inimigocond1=="Defender" || inimigocond1=="defender" || inimigocond1=="D" || inimigocond1=="d") {
+		Console.Clear();
+		Console.WriteLine("\n                     @@(((((((((@@@"                                                                                          
++"\n                ..@@@((/////////(((@@..                                      @@@&                 @@@@"                       
++"\n              @@((///////////////////((@@%                                      (@@@          @@@@"                           
++"\n           ,,,&&/////..............////&&%,,                                 @@@@@@@@@@@@@@@@@@@@@@@@%"                       
++"\n       ((,,%%%%%**...**.......**(((....%%%%%,,((                             @@@@@@@@@@@@@@@@@@@@@@@@%"                       
++"\n       //**...((,,///....,,,**//,,,((,,((/..**//                         @@@@@@@    @@@@@@@@@@    @@@@@@@"                    
++"\n           %%%..%%*****((%%%,,.....,,%%..*%%                          @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"               
++"\n           @@@,,##(((((%%,,,..//###((##,,/@@                          @@@%   @@@@@@@@@@@@@@@@@@@@@@@@@   @@@@"                
++"\n              @@@@...##  .....  ###..@@@@@@@                          @@@%   @@@@@@@@@@@@@@@@@@@@@@@@@   @@@@"                
++"\n              @@*******.....**@@...((@@..*@@                          @@@%   @@@*                 @@@@   @@@@"                
++"\n           @@@..%%((((((((((%%..@@@....@@%                                      @@@@@@@@   @@@@@@@"                           
++"\n           @@@..%%(((,,,,(((%%..@@@@@@@##%@@"                                                                                 
++"\n           @@@..%%,,,((((,,,%%..@@@@@@@@@%"                                                                                   
++"\n           ,,,%%.....((((.....%%,,,"                                                                                          
++"\n                @@***    ***@@"                                                                                               
++"\n                  @@@@@@@@@@" 
++"\n");
+		ini[0].TomarDano(5);
+		jog[0].TomarDano(1);
+		Console.WriteLine(jog[0].BuscaJogador());
+		Console.WriteLine(ini[0].BuscaInimigo());
+		l++;
+		if (k == 2 || l == 10) {
+		statusinimigo = 1;
+		}
+		}
+	}
+		Console.Clear();	
+		int statusinimigo2 = 0;
+		int p=0;
+		int o=0;
+		Console.WriteLine("\n                        ..........."                                                                                          
++"\n                    (((///////////...*/("                                                                                     
++"\n                 ./#((//////////***,,...//.                                @@@              @@@"                              
++"\n                 %#((((((/////.....**%#*..%(                         @@@      @@@        @@@     @@@"                         
++"\n               %%(((#(((((((((...,/,,*/%//                           @@@   @@@@@@@@@@@@@@@@@@@@  @@@"                         
++"\n               @@(#%@@%%%((%%%((...@@%&@                             @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"                         
++"\n               @@(#%%%%/,..,(&**(/.  #(*@@                           @@@@@@@@@   @@@@@@@@   @@@@@@@@"                         
++"\n               @@%&@  @@@((*#@..%(...*(@                                @@@@@@@@@@@@@@@@@@@@@@@@@*"                           
++"\n                 %*   .*(&&&&@..&#/((%(                                 ###@@@##############@@@##,"                           
++"\n                       (@((@&%@@(((((@%                                    @@@              @@@"                              
++"\n                      *#&##@#,,,@&###.*@                                @@@                    @@"                            
++"\n                      @%(//@#,,,@%////(@"                                                                                     
++"\n                       *%(#@#...@&###%("                                                                                      
++"\n                           @@@@@%%%##@%"                                                                                      
++"\n                            *###&&%%%#/"
++"\n");
+		Console.WriteLine("\n Outro Inimigo SURGIU!!! ");
+		while (statusinimigo2 == 0) {
+			
+		
+		Console.WriteLine("\n Deseja Atacar ou Defender? ");
+		string inimigocond2 = Console.ReadLine();
+		
+		if (inimigocond2=="Atacar" || inimigocond2=="atacar" || inimigocond2=="A" || inimigocond2=="a") {
+		Console.Clear();
+		Console.WriteLine( "\n         ((***********.....,*"                                                                                               
++"\n        ##/****************...((                                           @@@              @@@"                              
++"\n      *@///*********.......%/*..&.                                   @@@      @@@        @@@     @@@"                         
++"\n      /@///////***//...((,,,%&((                                     @@@   @@@@@@@@@@@@@@@@@@@@  @@@"                         
++"\n     @@#//#%@##//#&&**.. @@%@@                                       @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"                         
++"\n      /@//#&@.  .,&&**(.   #*,@@                                     @@@@@@@@@   @@@@@@@@   @@@@@@@@"                         
++"\n        @@#&@@@(/,@@.,&.  .,@@                                          @@@@@@@@@@@@@@@@@@@@@@@@@*"                           
++"\n          @%.**@@@@@.,&*,,*@.                                           ###@@@##############@@@##,"                           
++"\n               @@///@@&@@##@. @@@,                                         @@@              @@@"                              
++"\n               @@///&#...@@@@@//,///////////////.                       @@@                    @@"                            
++"\n             @@//#&&&&@.....(#,,                 .,,/,"                                                                       
++"\n             @@/*******@@@@@%#//.................,//"                                                                         
++"\n                ,@@@@@@@@%%@."                                                                                                
++"\n               @@&*, ,@@@%%@."                                                                                                
++"\n                ,@&&%%%%%@@"                                                                                                  
++"\n                  @@@@@@@"
++"\n" );
+		ini[1].TomarDano(25);
+		jog[0].TomarDano(2);
+		Console.WriteLine(jog[0].BuscaJogador());
+		Console.WriteLine(ini[1].BuscaInimigo());
+		p++;
+		if (p == 2 || o == 10) {
+		statusinimigo2 = 1;
+		}
+		}
+		
+		if (inimigocond2=="Defender" || inimigocond2=="defender" || inimigocond2=="D" || inimigocond2=="d") {
+		Console.Clear();
+		Console.WriteLine("\n                      @@(((((((((@@@"                                                                                         
++"\n                   %@@((/////////(((@@"                                                                                       
++"\n               @@((///////////////////((@@@                                @@@              @@@"                              
++"\n               @@///((..............((//@@@                          @@@      @@@        @@@     @@@"                         
++"\n        ((,,%%%%%**...**.......**/((....%%%%%,,((.                   @@@   @@@@@@@@@@@@@@@@@@@@  @@@"                         
++"\n        %%.....((../((.........((*,,((..(((....%%.                   @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"                         
++"\n            %%%..%%/****((%%%,,.....,,%%...%%                        @@@@@@@@@   @@@@@@@@   @@@@@@@@"                         
++"\n            @@@..((&@@((%%,,,..,,#%%@@((...@@                           @@@@@@@@@@@@@@@@@@@@@@@@@*"                           
++"\n               @@@@*..##  .....  (##..@@@@@@@                           ###@@@##############@@@##,"                           
++"\n               @@*******.....**@@,..((@@...@@                              @@@              @@@"                              
++"\n            @@@..%%#(((((((((%%..&@@....@@@                             @@@                    @@"                            
++"\n            @@@..%%#((,,,,(((%%..&@@@@@@###@@"                                                                                
++"\n            @@@..%%*,,((((,,,%%..&@@@@@@@@@"                                                                                  
++"\n            @@@..  /((****(((  ..&@@"                                                                                         
++"\n                 @@(**    ***@@"                                                                                              
++"\n                   %@@@@@@@@@"
++"\n");
+		ini[1].TomarDano(5);
+		jog[0].TomarDano(1);
+		Console.WriteLine(jog[0].BuscaJogador());
+		Console.WriteLine(ini[1].BuscaInimigo());
+		o++;
+		if (p == 2 || o == 10) {
+		statusinimigo2 = 1;
+		}
+		}
+	}
+		Console.Clear();	
+		int statusinimigo3 = 0;
+		int r=0;
+		int t=0;
+		Console.WriteLine("\n                                                                                                   @@@@"                      
++"\n                         ((((//////////...**(.                                                   @@@@@@@@"                    
++"\n                       ,%((//////////***...../(                                           @@@@@@@@@@@@@"                      
++"\n                      %#((((((/////,....,*%%*..%%                                                %@@@@@"                      
++"\n                    %%(((((((((((((,...(****%((                                                    @@"                        
++"\n                    @@(#%@@%%%((%%%((...&@%%@,                                                 ##%@@@@#"                      
++"\n                    @@(#%@@%#...,*%**((.  ##*&@                                               @@@@@@@@@@@"                    
++"\n                    @@%%@  @@@((*/@,.%#...**@,                                              @@@##////&@@@"                    
++"\n                      @#   ../@@&@@,.%%***@&                                              @@@@       @@@@"                    
++"\n                            ,@((@&%@@(((((@@                                              @@@@       (@@@"                    
++"\n                           .*&((@&,,,@&(((..@,                                            @@@@     @@@@@@"                    
++"\n                           @&(//@&,,,@&/////@,                                                @@@@@@@"                        
++"\n                            ,@(/@&...@&//(&&                                                     %@"                          
++"\n                                @@@@@%%%##@&                                              @@     @@@@@@@@"                    
++"\n                                 .&&&&%###&&                                              @//@@........@@"                    
++"\n                                                                                               @@@@@@@@"
++"\n");
+		Console.WriteLine("\n Outro Inimigo SURGIU!!! ");
+			
+			
+			if (easteregg == 0) {
+		while (statusinimigo3 == 0) {
+		Console.WriteLine("\n Deseja Atacar ou Defender? ");
+		string inimigocond3 = Console.ReadLine();
+		if (inimigocond3=="Atacar" || inimigocond3=="atacar" || inimigocond3=="A" || inimigocond3=="a") {
+		Console.Clear();
+		Console.WriteLine( "\n                                                                                                   @@@@"                      
++"\n          ((***********.....,*                                                                   @@@@@@@@"                    
++"\n        ##/****************...((                                                          @@@@@@@@@@@@@"                      
++"\n      *@///*********.......%/*..&.                                                               %@@@@@"                      
++"\n      /@///////***//...((,,,%&((                                                                   @@"                        
++"\n     @@#//#%@##//#&&**.. @@%@@                                                                 ##%@@@@#"                      
++"\n      /@//#&@.  .,&&**(.   #*,@@                                                              @@@@@@@@@@@"                    
++"\n        @@#&@@@(/,@@.,&.  .,@@                                                              @@@##////&@@@"                    
++"\n          @%.**@@@@@.,&*,,*@.                                                             @@@@       @@@@"                    
++"\n               @@///@@&@@##@. @@@,                                                        @@@@       (@@@"                    
++"\n               @@///&#...@@@@@//,///////////////.                                         @@@@     @@@@@@"                    
++"\n             @@//#&&&&@.....(#,,                 .,,/,                                        @@@@@@@"                        
++"\n             @@/*******@@@@@%#//.................,//                                             %@"                          
++"\n                ,@@@@@@@@%%@.                                                             @@     @@@@@@@@"                    
++"\n               @@&*, ,@@@%%@.                                                             @//@@........@@"                    
++"\n                ,@&&%%%%%@@                                                                    @@@@@@@@@"                              
++"\n                  @@@@@@@"                                                                                                    
++"\n" );
+		boss[0].TomarDano(2);
+		jog[0].Morte();
+		Console.WriteLine(jog[0].BuscaJogador());
+		Console.WriteLine(boss[0].BuscaBOSS());
+		r++;
+		if ( r == 1 || t == 1) {
+		statusinimigo3 = 1;
+		Console.Clear();
+		Console.WriteLine("                 VOCÊ MORREU !!!!            ");
+		Console.WriteLine("                 FIM DE JOGO !!!!            ");	
+		}
+		}
+		
+		if (inimigocond3=="Defender" || inimigocond3=="defender" || inimigocond3=="D" || inimigocond3=="d") {
+		Console.Clear();
+		Console.WriteLine("\n                     @@(((((((((@@@                                                                @@@@"                      
++"\n                  &@@((/////////(((@@                                                            @@@@@@@@"                    
++"\n              ,,&&(((//////////////((&&,,,                                                @@@@@@@@@@@@@"                      
++"\n              @@///((..............((//@@@                                                       %@@@@@"                      
++"\n           @@@((((,..................(((((@@                                                       @@"                        
++"\n       %%.....((../((.........((*,,((..(((....%%.                                              ##%@@@@#"                      
++"\n         %%,,,%%((***....***%%,,...((**(((,,%%                                                @@@@@@@@@@@"                    
++"\n           @@@..((@@@((%%,,,..,,#%%@@((...@@                                                @@@##////&@@@"                    
++"\n           ///##&&,  ##**.....**###  &&###@@                                              @@@@       @@@@"                    
++"\n              @@*******.....**@@,..((@@...@@                                              @@@@       (@@@"                    
++"\n           @@@**              **@@@,,.....@@                                              @@@@     @@@@@@"                    
++"\n           @@@..%%(((,,,,(((%%..&@@@@@@###@@                                                  @@@@@@@"                        
++"\n           @@@..%%/**((((***%%..@@@((&&###@@                                                     %@"                          
++"\n           @@@..  /((****(((  ..&@@                                                       @@     @@@@@@@@"                    
++"\n              ,,&&*,,....,,,&&,,                                                          @//@@........@@"                    
++"\n                  &@@@@@@@@@                                                                   @@@@@@@@@"                              
++"\n");
+		boss[0].TomarDano(2);
+		jog[0].Morte();
+		Console.WriteLine(jog[0].BuscaJogador());
+		Console.WriteLine(boss[0].BuscaBOSS());
+		t++;
+		if (r == 1 || t == 1) {
+		statusinimigo3 = 1;
+		Console.Clear();
+		Console.WriteLine("                 VOCÊ MORREU !!!!            ");
+		Console.WriteLine("                 FIM DE JOGO !!!!            ");
+		}
+		}
+	}
+}			
+
+			if (easteregg == 1) {
+		while (statusinimigo3 == 0) {
+		Console.WriteLine("\n Deseja Atacar ou Defender? ");
+		string inimigocond3 = Console.ReadLine();
+		if (inimigocond3=="Atacar" || inimigocond3=="atacar" || inimigocond3=="A" || inimigocond3=="a") {
+		Console.Clear();
+		Console.WriteLine( "\n                                                                                                   @@@@"                      
++"\n          ((***********.....,*                                                                   @@@@@@@@"                    
++"\n        ##/****************...((                                                          @@@@@@@@@@@@@"                      
++"\n      *@///*********.......%/*..&.                                                               %@@@@@"                      
++"\n      /@///////***//...((,,,%&((                                                                   @@"                        
++"\n     @@#//#%@##//#&&**.. @@%@@                                                                 ##%@@@@#"                      
++"\n      /@//#&@.  .,&&**(.   #*,@@                                                              @@@@@@@@@@@"                    
++"\n        @@#&@@@(/,@@.,&.  .,@@                                                              @@@##////&@@@"                    
++"\n          @%.**@@@@@.,&*,,*@.                                                             @@@@       @@@@"                    
++"\n               @@///@@&@@##@. @@@,                                                        @@@@       (@@@"                    
++"\n               @@///&#...@@@@@//,///////////////.                                         @@@@     @@@@@@"                    
++"\n             @@//#&&&&@.....(#,,                 .,,/,                                        @@@@@@@"                        
++"\n             @@/*******@@@@@%#//.................,//                                             %@"                          
++"\n                ,@@@@@@@@%%@.                                                             @@     @@@@@@@@"                    
++"\n               @@&*, ,@@@%%@.                                                             @//@@........@@"                    
++"\n                ,@&&%%%%%@@                                                                    @@@@@@@@@"                              
++"\n                  @@@@@@@"                                                                                                    
++"\n" );
+		boss[0].Morte();
+		Console.WriteLine(jog[0].BuscaJogador());
+		Console.WriteLine(boss[0].BuscaBOSS());
+		r++;
+		if ( r == 1 || t == 1) {
+		statusinimigo3 = 1;
+		Console.Clear();
+		Console.WriteLine("                 VOCÊ VENCEU !!!!            ");
+		Console.WriteLine("                 FIM DE JOGO !!!!            ");
+		Console.WriteLine("\n                                   @@########@@"
++"\n                                 @@##((((((((##@@"
++"\n                             (/&&((((((((((((((((&&//"
++"\n                             @@((##************##((@@"
++"\n                           @@####****************####@@"
++"\n                       ##**&&&&//**//******//##****&&&&**##"
++"\n                       *///,,%%//((****//((//,,##*/##,,////"
++"\n                           &&**&&////##&&**....**&&**&&"
++"\n                           @@**##@@##&&**..**&&@@##**@@"
++"\n                           @@//&&  ((&&....&&((  &&//@@"
++"\n                             ((@@**,,  ....  ,***@@(("
++"\n                             @@,,&&&&********&&&&,,@@"
++"\n                           @@,,,,%%############%%,,,,@@"
++"\n                        @@....@@&&############&&@@....@@"
++"\n                         ((%%##@@((##%%****%%##((@@##%%(("
++"\n                               @@@@##((((((((##@@@@"
++"\n                             @@##&&@@@@@@@@@@@@&&##@@"
++"\n                             @@%###&&@@    @@&&####@@"
++"\n                               (((((0(        (((((("
++"\n");	
+		}
+		}
+		
+		if (inimigocond3=="Defender" || inimigocond3=="defender" || inimigocond3=="D" || inimigocond3=="d") {
+		Console.Clear();
+		Console.WriteLine("\n                     @@(((((((((@@@                                                                @@@@"                      
++"\n                  &@@((/////////(((@@                                                            @@@@@@@@"                    
++"\n              ,,&&(((//////////////((&&,,,                                                @@@@@@@@@@@@@"                      
++"\n              @@///((..............((//@@@                                                       %@@@@@"                      
++"\n           @@@((((,..................(((((@@                                                       @@"                        
++"\n       %%.....((../((.........((*,,((..(((....%%.                                              ##%@@@@#"                      
++"\n         %%,,,%%((***....***%%,,...((**(((,,%%                                                @@@@@@@@@@@"                    
++"\n           @@@..((@@@((%%,,,..,,#%%@@((...@@                                                @@@##////&@@@"                    
++"\n           ///##&&,  ##**.....**###  &&###@@                                              @@@@       @@@@"                    
++"\n              @@*******.....**@@,..((@@...@@                                              @@@@       (@@@"                    
++"\n           @@@**              **@@@,,.....@@                                              @@@@     @@@@@@"                    
++"\n           @@@..%%(((,,,,(((%%..&@@@@@@###@@                                                  @@@@@@@"                        
++"\n           @@@..%%/**((((***%%..@@@((&&###@@                                                     %@"                          
++"\n           @@@..  /((****(((  ..&@@                                                       @@     @@@@@@@@"                    
++"\n              ,,&&*,,....,,,&&,,                                                          @//@@........@@"                    
++"\n                  &@@@@@@@@@                                                                   @@@@@@@@@"                              
++"\n");
+		boss[0].Morte();
+		Console.WriteLine(jog[0].BuscaJogador());
+		Console.WriteLine(boss[0].BuscaBOSS());
+		t++;
+		if (r == 1 || t == 1) {
+		statusinimigo3 = 1;
+		Console.Clear();
+		Console.WriteLine("                 VOCÊ VENCEU !!!!            ");
+		Console.WriteLine("                 FIM DE JOGO !!!!            ");
+		Console.WriteLine("\n                                   @@########@@"
++"\n                                 @@##((((((((##@@"
++"\n                             (/&&((((((((((((((((&&//"
++"\n                             @@((##************##((@@"
++"\n                           @@####****************####@@"
++"\n                       ##**&&&&//**//******//##****&&&&**##"
++"\n                       *///,,%%//((****//((//,,##*/##,,////"
++"\n                           &&**&&////##&&**....**&&**&&"
++"\n                           @@**##@@##&&**..**&&@@##**@@"
++"\n                           @@//&&  ((&&....&&((  &&//@@"
++"\n                             ((@@**,,  ....  ,***@@(("
++"\n                             @@,,&&&&********&&&&,,@@"
++"\n                           @@,,,,%%############%%,,,,@@"
++"\n                        @@....@@&&############&&@@....@@"
++"\n                         ((%%##@@((##%%****%%##((@@##%%(("
++"\n                               @@@@##((((((((##@@@@"
++"\n                             @@##&&@@@@@@@@@@@@&&##@@"
++"\n                             @@%###&&@@    @@&&####@@"
++"\n                               (((((0(        (((((("
++"\n");
+		}
+		}
+	}
+}
+			
+			
+			
+			
+			
+			
+			
+		}
+		
+		}
+		
+		
+		}
+	}
+	

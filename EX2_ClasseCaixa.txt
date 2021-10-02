@@ -1,0 +1,135 @@
+using System;
+
+//Classe Caixa Eletrônico
+public class Caixa
+{
+	//Define Atributos
+	private string Cor;
+	private string Tamanho;
+	private string QTeclas;
+	private string Login;
+	private float Saldo;
+	
+	//Define Métodos
+	public void CriaCaixa(string c, string t, string q, string l, float s)
+	{
+		this.Cor = c;
+		this.Tamanho = t;
+		this.QTeclas = q;
+		this.Login = l;
+		this.Saldo = s;
+	}
+	
+	public string BuscaCaixa()
+	{
+		string caixa;
+		caixa = this.Cor + " " + this.Tamanho + " " + " " + this.QTeclas + " Cliente:" + this.Login + " Saldo:" + this.Saldo;
+		return caixa;
+	}
+	//MÉTODO PARA REALIZAR O DEPÓSITO
+	public void EfetuarDepósito(float so)
+	{
+		float soma = so;
+		this.Saldo = this.Saldo + soma;
+	}
+	//MÉTODO PARA REALIZAR O SAQUE
+	public void EfetuarSaque(float sa)
+	{
+		float saque = sa;
+		this.Saldo = this.Saldo - saque;
+	}
+}
+
+//Programa Principal
+public class Program
+{
+	public static void Main()
+	{
+		Console.WriteLine("Crie Objetos da Classe Caixa Eletrônico de um Banco");
+		Console.WriteLine("Insira a Quantidade de Caixas:");
+		
+		int n = int.Parse(Console.ReadLine());
+		
+		//Cria Vetor de Objetos do tipo Caixa Eletrônico
+		Caixa[] cai = new Caixa[n];
+		
+		for (int i = 0; i < n; i++)
+		{
+			//Instancia Novo Objeto da Classe Caixa
+			cai[i] = new Caixa();
+			
+			Console.WriteLine("---------------");
+			Console.WriteLine("Caixa #" + (i+1));
+			Console.WriteLine("Cor....:");
+			string cor = Console.ReadLine();
+			Console.WriteLine("Tamanho....:");
+			string tamanho = Console.ReadLine();
+			Console.WriteLine("Quantidade de Teclas....:");
+			string qteclas = Console.ReadLine();
+			Console.WriteLine("Nome do Cliente....:");
+			string login = Console.ReadLine();
+			float saldo = 0;
+			
+			Console.WriteLine("\n");
+			
+			//Chamada do Método CriaCaixa
+			cai[i].CriaCaixa(cor, tamanho, qteclas, login, saldo);
+		}
+	
+		
+		int status = 0;
+		
+		while (status == 0)
+		{	
+			Console.WriteLine("Busca Caixa #");
+			int n_cai = int.Parse(Console.ReadLine());
+			n_cai=n_cai-1;
+			
+			Console.WriteLine("Deseja acessar a Conta? S/N");
+			string caiestado1 = Console.ReadLine();
+					if (caiestado1 == "S" || caiestado1 == "s") {
+						
+						
+						int status_cai = 0;
+						
+						while (status_cai == 0) {						
+						Console.WriteLine("Deseja Depositar ou Sacar? D/S ");
+						string caiestado2 = Console.ReadLine();
+							//CONSULTA O VALOR A SER DEPOSITADO
+						if (caiestado2 == "D" || caiestado2 == "d") {
+							Console.WriteLine("Digite o valor a ser Depositado");
+							float nu1 = float.Parse(Console.ReadLine());
+							cai[n_cai].EfetuarDepósito(nu1);
+							Console.WriteLine(cai[n_cai].BuscaCaixa());
+							}
+							//CONSULTA O VALOR A SER SACADO
+						if (caiestado2 == "S" || caiestado2 == "s") {
+							Console.WriteLine("Digite o valor a ser Sacado");
+							float nu2 = float.Parse(Console.ReadLine());
+							cai[n_cai].EfetuarSaque(nu2);
+							Console.WriteLine(cai[n_cai].BuscaCaixa());
+							}
+								//PERGUNTA SE O USUÁRIO DESEJA FAZER MAIS ALGUMA CONTA
+							Console.WriteLine("Deseja fazer mais alguma transação? S/N");
+							string caiestado3 = Console.ReadLine();
+							if (caiestado3 == "N" || caiestado3 == "n")
+							{
+							status_cai = 1;
+							}					
+						}
+					}
+			else {
+			Console.WriteLine(cai[n_cai].BuscaCaixa());
+			}
+			
+			
+			Console.WriteLine("Deseja sair? S/N");
+			string sair = Console.ReadLine();
+			
+			if (sair == "S" || sair == "s")
+			{
+				status = 1;
+			}
+		}
+	}
+}

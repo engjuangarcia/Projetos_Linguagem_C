@@ -1,0 +1,201 @@
+using System;
+
+//Classe Calculadora
+public class Calculadora
+{
+	//Define Atributos
+	private string Marca;
+	private string Modelo;
+	private float QTeclas;
+	private float Peso;
+	private string estado;
+	private float display;
+
+	//Define Métodos
+	public void CriaCalculadora(string m, string n, float q, float p, string es, float dis)
+	{
+		this.Marca = m;
+		this.Modelo = n;
+		this.QTeclas = q;
+		this.Peso = p;
+		this.estado = "Desligada";
+		this.display = dis;
+	}
+	
+	public string BuscaCalculadora()
+	{
+		string calculadora;
+		calculadora = this.Marca + " " + this.Modelo + " " + this.QTeclas + " " + this.Peso + " Status:" + this.estado + " Display:" + this.display;
+		return calculadora;
+	}
+		//DEFINE O ESTADO DA CALCULADORA
+	public void LigaCalculadora()
+	{
+		this.estado = "Ligada";
+	}
+	public void DesligaCalculadora()
+	{
+		this.estado = "Desligada";
+	}
+	
+		//MÉTODOS RELATIVOS AO DISPLAY DA CALCULADORA
+	public void AlteraDisplay() {
+		float m = 0;
+		this.display = m;
+	}
+	public void SomaDisplay(float a, float b) {
+		float n1 = a;
+		float n2 = b;
+		this.display = n1 + n2;
+	}
+	public void SubDisplay(float a, float b) {
+		float n1 = a;
+		float n2 = b;
+		this.display = n1 - n2;
+	}
+	public void MultDisplay(float a, float b) {
+		float n1 = a;
+		float n2 = b;
+		this.display = n1 * n2;
+
+	}
+	public void DivideDisplay(float a, float b) {
+		float n1 = a;
+		float n2 = b;
+		this.display = n1 / n2;
+
+	}
+}
+
+//Programa Principal
+public class Program
+{
+	public static void Main()
+	{
+		Console.WriteLine("Crie Objetos da Classe Calculadora");
+		Console.WriteLine("Insira a Quantidade de Calculadoras:");
+		
+		int n = int.Parse(Console.ReadLine());
+		
+		//Cria Vetor de Objetos do tipo Calculadora
+		Calculadora[] cal = new Calculadora[n];
+		
+		for (int i = 0; i < n; i++)
+		{
+			//Instancia Novo Objeto da Classe Calculadora
+			cal[i] = new Calculadora();
+			
+			Console.WriteLine("---------------");
+			Console.WriteLine("Calculadora #" + (i+1));
+			Console.WriteLine("Marca....:");
+			string marca = Console.ReadLine();
+			Console.WriteLine("Modelo....:");
+			string modelo = Console.ReadLine();
+			Console.WriteLine("Quantidade de Teclas....:");
+			float qteclas = float.Parse(Console.ReadLine());
+			Console.WriteLine("Peso em gramas....:");
+			float peso = float.Parse(Console.ReadLine());
+			Console.WriteLine("Status....:");
+			string estado = "Desligada";
+			Console.WriteLine(estado);
+			float display = 0;
+			
+			Console.WriteLine("\n");
+			
+			//Chamada do Método CriaCalculadora
+			cal[i].CriaCalculadora(marca, modelo, qteclas, peso, estado, display);
+		}
+		
+		
+		int status = 0;
+		
+		while (status == 0)
+		{	
+			Console.WriteLine("Busca Calculadora #");
+			int n_cal = int.Parse(Console.ReadLine());
+			n_cal=n_cal-1;
+			Console.WriteLine(cal[n_cal].BuscaCalculadora());
+			
+			// Operação de Ligar ou Desligar uma Calculadora:
+			
+			Console.WriteLine("Deseja Ligar ou Desligar? L/D");
+					string calestado2 = Console.ReadLine();
+					if (calestado2 == "L" || calestado2 == "l") {
+						cal[n_cal].LigaCalculadora();
+						
+						int status_cal = 0;
+						
+						while (status_cal == 0)
+						{
+						Console.WriteLine("Deseja Somar, Subtrair, Multiplicar ou Dividir? S/SUB/M/D");
+						string calestado3 = Console.ReadLine();
+							
+							//SOMAR
+						if (calestado3 == "S" || calestado3 == "s") {
+							Console.WriteLine("Digite um número");
+							float nu1 = float.Parse(Console.ReadLine());
+							Console.WriteLine("Digite outro número");
+							float nu2 = float.Parse(Console.ReadLine());
+							cal[n_cal].SomaDisplay(nu1,nu2);
+							Console.WriteLine(cal[n_cal].BuscaCalculadora());
+							}
+							
+							//SUBTRAIR
+						if (calestado3 == "SUB" || calestado3 == "sub") {
+							Console.WriteLine("Digite um número");
+							float nu1 = float.Parse(Console.ReadLine());
+							Console.WriteLine("Digite outro número");
+							float nu2 = float.Parse(Console.ReadLine());
+							cal[n_cal].SubDisplay(nu1,nu2);
+							Console.WriteLine(cal[n_cal].BuscaCalculadora());
+							}
+							
+							//MULTIPLICAR
+						if (calestado3 == "M" || calestado3 == "m") {
+							Console.WriteLine("Digite um número");
+							float nu1 = float.Parse(Console.ReadLine());
+							Console.WriteLine("Digite outro número");
+							float nu2 = float.Parse(Console.ReadLine());
+							cal[n_cal].MultDisplay(nu1,nu2);
+							Console.WriteLine(cal[n_cal].BuscaCalculadora());
+							}
+							
+							//DIVIDIR
+						if (calestado3 == "D" || calestado3 == "d") {
+							Console.WriteLine("Digite um número");
+							float nu1 = float.Parse(Console.ReadLine());
+							Console.WriteLine("Digite outro número");
+							float nu2 = float.Parse(Console.ReadLine());
+							cal[n_cal].DivideDisplay(nu1,nu2);
+							Console.WriteLine(cal[n_cal].BuscaCalculadora());
+							}
+							
+							//PERGUNTA SE O USUÁRIO DESEJA FAZER MAIS ALGUMA CONTA
+						Console.WriteLine("Deseja fazer mais alguma conta? S/N");
+						string calestado4 = Console.ReadLine();
+						if (calestado4 == "N" || calestado4 == "n")
+							{
+							status_cal = 1;
+							}					
+							
+					}
+					
+			}
+						//DESLIGA A CALCULADORA E DEFINE O STATUS 0			
+					if (calestado2 == "D" || calestado2 == "d") {
+						cal[n_cal].DesligaCalculadora();
+						cal[n_cal].AlteraDisplay();
+						Console.WriteLine(cal[n_cal].BuscaCalculadora());
+					}
+		
+				//SAI DO PROGRAMA
+			Console.WriteLine("Deseja sair? S/N");
+			string sair = Console.ReadLine();
+			
+			if (sair == "S" || sair == "s")
+			{
+				status = 1;
+			}
+		}
+	}
+}

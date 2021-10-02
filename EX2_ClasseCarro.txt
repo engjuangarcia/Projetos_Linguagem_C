@@ -1,0 +1,112 @@
+using System;
+
+//Classe Carro
+public class Carro
+{
+	//Define Atributos
+	private string Marca;
+	private string Modelo;
+	private float Ano;
+	private string Cor;
+	private float Posicao;
+	private float Velocidade;
+	
+	//Define Métodos
+	public void CriaCarro(string m, string n, float a, string c, float v, float p)
+	{
+		this.Marca = m;
+		this.Modelo = n;
+		this.Ano = a;
+		this.Cor = c;
+		this.Velocidade = v;
+		this.Posicao = p;
+	}
+	
+	public string BuscaCarro()
+	{
+		string carro;
+		carro = this.Marca + " " + this.Modelo + " " + this.Ano + " " + this.Cor + " Posição Atual: " + this.Posicao;
+		return carro;
+	}
+	
+	public void MoveCarro()
+	{
+		this.Posicao = this.Posicao + this.Velocidade;
+	}
+}
+
+//Programa Principal
+public class Program
+{
+	public static void Main()
+	{
+		Console.WriteLine("Criar objetos da Classe Carro");
+		Console.WriteLine("Entre com a quantidade de Carros....:");
+		
+		int n = int.Parse(Console.ReadLine());
+		
+		//Cria Vetor de Objetos do tipo Carro
+		Carro[] car = new Carro[n];
+		
+		for (int i = 0; i < n; i++)
+		{
+			//Instancia Novo Objeto da Classe Carro
+			car[i] = new Carro();
+			
+			Console.WriteLine("---------------");
+			Console.WriteLine("Carro #" + (i+1));
+			Console.WriteLine("Marca....:");
+			string marca = Console.ReadLine();
+			Console.WriteLine("Modelo....:");
+			string modelo = Console.ReadLine();
+			Console.WriteLine("Ano....:");
+			float ano = float.Parse(Console.ReadLine());
+			Console.WriteLine("Cor....:");
+			string cor = Console.ReadLine();
+			Console.WriteLine("Velocidade: "); 
+			float vel = float.Parse(Console.ReadLine());
+			Console.WriteLine("Posição Inicial: ");
+			float pos = float.Parse(Console.ReadLine());
+			
+			
+			Console.WriteLine("\n");
+			
+			//Chamada do Método CriaCarro
+			car[i].CriaCarro(marca, modelo, ano, cor, vel, pos);
+		}
+			
+		int status = 0;
+		
+		while (status == 0)
+		{
+		Console.WriteLine("Deseja movimentar algum carro? S/N");
+		string estadocar = Console.ReadLine();
+		Console.WriteLine("Qual carro deseja movimentar? ");
+		int n_car = int.Parse(Console.ReadLine());
+		n_car= n_car - 1;	
+		
+			int carstatus = 0;
+		
+		while (carstatus == 0){
+			if (estadocar == "S" || estadocar == "s") {
+				car[n_car].MoveCarro();
+				Console.WriteLine(car[n_car].BuscaCarro());
+				Console.WriteLine("Deseja continuar movendo esse carro? S/N");
+				string estadocar1 = Console.ReadLine();
+					if (estadocar1 == "N" || estadocar1 == "n") {
+						carstatus = 1;
+					}
+		
+				
+				}
+		}
+			Console.WriteLine("Deseja sair? S/N");
+			string sair = Console.ReadLine();
+			
+			if (sair == "S" || sair == "s")
+			{
+				status = 1;
+			}
+		}
+	}
+}

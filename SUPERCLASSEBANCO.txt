@@ -1,0 +1,300 @@
+using System;
+
+//Superclasse Banco
+public class Banco
+{
+	//Define Atributos
+	public string NomeBanco;
+	public string Agência;
+	
+	//Define Figura
+	public void CriarBanco(string b, string a)
+	{
+		this.NomeBanco = b;
+		this.Agência = a;
+	}
+	
+	//Define Saldo
+	public float Saldo()
+	{
+		return 0;
+	}
+	public string Login(string l)
+	{
+		string login = l;
+		return l;
+	}
+	
+}
+
+//Subclasse Cliente
+public class Cliente:Banco
+{
+	//Define Atributos
+	private string login;
+	private float saldo;
+	
+	//Define Login
+	public string Login()
+	{
+		return this.login;
+	}
+	
+	//Define Saldo
+	public float Saldo(float s)
+	{
+		this.saldo = s;	
+		return this.saldo;
+	}
+	
+	public void CriaCliente(string b, string a, string l, float s)
+	{
+		this.NomeBanco = b;
+		this.Agência = a;
+		this.login = l;
+		this.saldo = s;
+	}
+	//Busca Cliente
+	public string BuscaCliente()
+	{
+		string cliente;
+		cliente ="Banco: " + this.NomeBanco + " Agência: " + this.Agência +" Cliente:" + this.login + " Saldo:" + this.saldo;
+		return cliente;
+	}
+	
+	//Métodos Relativos ao Saldo do Cliente
+	public void EfetuarDepósito(float so)
+	{
+		float soma = so;
+		this.saldo = this.saldo + soma;
+	}
+	public void EfetuarSaque(float sa)
+	{
+		float saque = sa;
+		this.saldo = this.saldo - saque;
+	}
+}
+
+//Subclasse Gerente
+public class Gerente:Banco
+{
+	
+	//Define Atributos
+	private string login;
+	private float saldo;
+	
+	//Define Login
+	public string Login()
+	{
+		return this.login;
+	}
+	
+	//Define Saldo
+	public float Saldo(float s)
+	{
+		this.saldo = s;	
+		return this.saldo;
+	}
+	//Cria Gerente
+	public void CriaGerente(string b, string a, string l, float s)
+	{
+		this.NomeBanco = b;
+		this.Agência = a;
+		this.login = l;
+		this.saldo = s;
+	}
+	//Busca Gerente
+	public string BuscaGerente()
+	{
+		string gerente;
+		gerente = " Banco:" + this.NomeBanco + " Agência:" + this.Agência + " Gerente:" + this.login + " Saldo:" + this.saldo;
+		return gerente;
+	}
+	//Métodos Relativos ao Saldo do Gerente
+	public void EfetuarDepósito(float so)
+	{
+		float soma = so;
+		this.saldo = this.saldo + soma;
+	}
+	public void EfetuarSaque(float sa)
+	{
+		float saque = sa;
+		this.saldo = this.saldo - saque;
+	}
+}
+
+//Programa Principal
+public class Program
+{
+	public static void Main()
+	{
+		Console.WriteLine("Entre com o seu Banco");
+		string banco = Console.ReadLine();
+		Console.WriteLine("Insira o número da Agência:");
+		string agencia = Console.ReadLine();
+		
+		
+		Console.WriteLine("Qual seu Login Gerente ou Cliente?");
+		string tipo = Console.ReadLine();
+		
+		//Cria Banco para cliente
+		if (tipo == "Cliente" || tipo == "cliente")
+		{
+		Console.WriteLine("Insira a Quantidade de Clientes:");
+		int n = int.Parse(Console.ReadLine());
+		
+		//Cria Vetor de Objetos do tipo Caixa Eletrônico
+		Cliente[] cli = new Cliente[n];
+		
+		for (int i = 0; i < n; i++)
+		{
+			//Instancia Novo Objeto da Classe Caixa
+			cli[i] = new Cliente();
+			
+			Console.WriteLine("Qual o nome do Cliente Número " + (i+1) + "?");
+			string nome = Console.ReadLine();
+			cli[i].Login(nome);
+			Console.WriteLine("Qual o saldo do Cliente Número " + (i+1) + "?");
+			float s = float.Parse(Console.ReadLine());
+			cli[i].Saldo(s);
+			
+			//Chamada do Método CriaCliente
+			cli[i].CriaCliente(banco, agencia, cli[i].Login(nome), cli[i].Saldo(s));
+			}
+			
+				
+		int status = 0;
+		
+		while (status == 0)
+		{	
+			Console.WriteLine("Busca Cliente (Insira o Número do Cliente) #");
+			int n_cli = int.Parse(Console.ReadLine());
+			n_cli=n_cli-1;
+			Console.WriteLine(cli[n_cli].BuscaCliente());	
+			Console.WriteLine("Deseja acessar a Conta? S/N");
+			string cliestado1 = Console.ReadLine();
+					if (cliestado1 == "S" || cliestado1 == "s") {
+						
+						
+						int status_cli = 0;
+						
+						while (status_cli == 0) {						
+						Console.WriteLine("Deseja Depositar ou Sacar? D/S ");
+						string cliestado2 = Console.ReadLine();
+							//CONSULTA O VALOR A SER DEPOSITADO
+						if (cliestado2 == "D" || cliestado2 == "d") {
+							Console.WriteLine("Digite o valor a ser Depositado");
+							float nu1 = float.Parse(Console.ReadLine());
+							cli[n_cli].EfetuarDepósito(nu1);
+							Console.WriteLine(cli[n_cli].BuscaCliente());
+							}
+							//CONSULTA O VALOR A SER SACADO
+						if (cliestado2 == "S" || cliestado2 == "s") {
+							Console.WriteLine("Digite o valor a ser Sacado");
+							float nu2 = float.Parse(Console.ReadLine());
+							cli[n_cli].EfetuarSaque(nu2);
+							Console.WriteLine(cli[n_cli].BuscaCliente());
+							}
+								//PERGUNTA SE O USUÁRIO DESEJA FAZER MAIS ALGUMA CONTA
+							Console.WriteLine("Deseja fazer mais alguma transação? S/N");
+							string cliestado3 = Console.ReadLine();
+							if (cliestado3 == "N" || cliestado3 == "n")
+							{
+							status_cli = 1;
+							}					
+						}
+					}
+		
+			Console.WriteLine("Deseja sair? S/N");
+			string sair = Console.ReadLine();
+			
+			if (sair == "S" || sair == "s")
+			{
+				status = 1;
+			}
+		}
+			
+		}
+		else
+		{	
+			if (tipo == "Gerente")
+			{
+				Console.WriteLine("Insira a Quantidade de Gerentes:");
+				int n = int.Parse(Console.ReadLine());
+
+		//Cria Vetor de Objetos do tipo Gerente
+		Gerente[] ger = new Gerente[n];
+		
+		for (int i = 0; i < n; i++)
+		{
+			//Instancia Novo Objeto da Classe Gerente
+			ger[i] = new Gerente();
+			
+			Console.WriteLine("Qual o nome do Gerente Número " + (i+1) + "?");
+			string nome = Console.ReadLine();
+			ger[i].Login(nome);
+			Console.WriteLine("Qual o saldo do Gerente Número " + (i+1) + "?");
+			float s = float.Parse(Console.ReadLine());
+			ger[i].Saldo(s);
+			
+			//Chamada do Método CriaCliente
+			ger[i].CriaGerente(banco, agencia, ger[i].Login(nome), ger[i].Saldo(s));
+			}
+			
+				
+		int status = 0;
+		
+		while (status == 0)
+		{	
+			Console.WriteLine("Busca Gerente (Insira o Número do Gerente) #");
+			int n_ger = int.Parse(Console.ReadLine());
+			n_ger=n_ger-1;
+			Console.WriteLine(ger[n_ger].BuscaGerente());	
+			Console.WriteLine("Deseja acessar a Conta? S/N");
+			string gerestado1 = Console.ReadLine();
+					if (gerestado1 == "S" || gerestado1 == "s") {
+						
+						
+						int status_ger = 0;
+						
+						while (status_ger == 0) {						
+						Console.WriteLine("Deseja Depositar ou Sacar? D/S ");
+						string gerestado2 = Console.ReadLine();
+							//CONSULTA O VALOR A SER DEPOSITADO
+						if (gerestado2 == "D" || gerestado2 == "d") {
+							Console.WriteLine("Digite o valor a ser Depositado");
+							float nu1 = float.Parse(Console.ReadLine());
+							ger[n_ger].EfetuarDepósito(nu1);
+							Console.WriteLine(ger[n_ger].BuscaGerente());
+							}
+							//CONSULTA O VALOR A SER SACADO
+						if (gerestado2 == "S" || gerestado2 == "s") {
+							Console.WriteLine("Digite o valor a ser Sacado");
+							float nu2 = float.Parse(Console.ReadLine());
+							ger[n_ger].EfetuarSaque(nu2);
+							Console.WriteLine(ger[n_ger].BuscaGerente());
+							}
+								//PERGUNTA SE O USUÁRIO DESEJA FAZER MAIS ALGUMA CONTA
+							Console.WriteLine("Deseja fazer mais alguma transação? S/N");
+							string gerestado3 = Console.ReadLine();
+							if (gerestado3 == "N" || gerestado3 == "n")
+							{
+							status_ger = 1;
+							}					
+						}
+					}
+		
+			Console.WriteLine("Deseja sair? S/N");
+			string sair = Console.ReadLine();
+			
+			if (sair == "S" || sair == "s")
+			{
+				status = 1;
+			}
+		}
+			
+			}
+		}
+		
+	}
+}
