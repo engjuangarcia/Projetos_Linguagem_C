@@ -1,0 +1,81 @@
+using System;
+
+
+//Classe Jogador
+public class Jogador {
+	//Definir Atributos
+	private float Altura;
+	private String Nome;
+	private String Posicao;
+	
+	// Definir Métodos
+	public void CriaJogador(float a, String n, String p) {
+		this.Altura = a;
+		this.Nome = n;
+		this.Posicao = p;
+	}
+	
+	//Métodos que retornam valor
+	public float BuscaAltura() {
+	return this.Altura;
+	}
+	
+	public String BuscaNome() {
+	return this.Nome;
+	}
+	
+	public String BuscaPosicao() {
+	return this.Posicao;
+	}
+}
+
+
+//Programa Principal
+public class Program
+{
+	public static void Main()
+	{
+		Console.WriteLine("Entre com a quantidade de Jogadores....:");
+		int n = int.Parse(Console.ReadLine());
+		
+		//Cria vetor de objetos do tipo Jogador
+		Jogador[] vet_jog = new Jogador[n];
+		
+		for (int i = 0; i < n; i++) {
+		
+			//Instanciar Objetos da Classe Jogador
+			vet_jog[i] = new Jogador();
+			
+			//Recebe os dados do usuário
+			Console.WriteLine("---------------");
+			Console.WriteLine("Jogador " + i);
+			Console.WriteLine("Nome ....:");
+			String nomeJogador = Console.ReadLine();
+			Console.WriteLine("Posição ....:");
+			String posJogador = Console.ReadLine();
+			Console.WriteLine("Altura ....:");
+			float altJogador = float.Parse(Console.ReadLine());
+			
+			//Chamar o Método CriaJogador
+			vet_jog[i].CriaJogador(altJogador, nomeJogador, posJogador);
+
+		}
+		
+		int status = 0;
+		
+		while (status == 0) {
+		Console.WriteLine("\n");
+		Console.WriteLine("Busca Jogador");
+		int pos_vet = int.Parse(Console.ReadLine());
+		
+		Console.WriteLine(vet_jog[pos_vet].BuscaNome() + "--" + vet_jog[pos_vet].BuscaPosicao() + "--" + vet_jog[pos_vet].BuscaAltura());
+			Console.WriteLine("Deseja sair S/N?");
+				String sair = Console.ReadLine();
+			if (sair == "Sair" || sair == "s") {
+			status = 1;
+			}
+			Console.WriteLine("\n");
+		}
+	
+	}
+}
